@@ -4,10 +4,13 @@ package com.atguigu.java1.connection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.annotation.processing.Filer;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 连接测试
@@ -99,6 +102,43 @@ public class ConnectionTest {
         //3. 获取连接
         Connection connection = DriverManager.getConnection(url, user, password);
         System.out.println(connection);
+
+    }
+
+
+    /*
+        方式四 -> 将配置文件的信息, 与代码解耦. 数据库的基本信息配置在文件中, 不放在class字节码文件中.
+
+        使用文件配置的方式的好处?
+            - 实现了数据和代码的分离, 解耦.
+            - 编写好的java文件, 部署到服务器上时, 需要打包. 如果java代码经过修改了, 就需要重新打包.
+                使用配置文件的方式, 如果配置信息修改, 并没有导致代码的修改, 所以不需要重新打包.
+                配置文件的更改, 只需要重新替换一下.
+
+     */
+    @Test
+    public void testConnection4() throws ClassNotFoundException, SQLException, IOException {
+
+        // 读取配置文件
+        Properties prop = new Properties();
+        InputStream fr = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
+        prop.load(fr);
+
+
+        String className = prop.getProperty("className");
+        String url = prop.getProperty("url");
+        String user = prop.getProperty("user");
+        String password = prop.getProperty("password");
+
+        // 注册驱动
+        Class.forName(className);
+
+        // 创建链接
+        Connection conn = DriverManager.getConnection(url, user, password);
+        System.out.println(conn);
+
+        // 测试结果
+        Assert.assertNotNull(conn);
 
     }
 
