@@ -17,7 +17,7 @@ import java.util.Properties;
 
 
 /*
-    JDBC工具类
+    JDBC工具类, 可以直接使用这里面的方法获取连接, 而不需要再重写代码
  */
 public class JDBCUtils {
 
