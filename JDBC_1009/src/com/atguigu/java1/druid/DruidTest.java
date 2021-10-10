@@ -2,12 +2,17 @@ package com.atguigu.java1.druid;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 德鲁伊的测试
@@ -62,6 +67,33 @@ public class DruidTest {
 
         // 断言
         Assert.assertNotNull(conn);
+    }
+
+
+    /*
+        方式二 -> 将数据库的基本信息写在配置文件中, 而不是直接写在代码中
+
+        推荐使用这种方式
+     */
+    @Test
+    public void testDruid2() throws Exception {
+
+        // 创建prop对象
+        Properties prop = new Properties();
+
+        // 读取配置文件
+        InputStream fr = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
+        prop.load(fr);
+
+        // 通过DruidDataSourceFactory创建连接池
+        DataSource source = DruidDataSourceFactory.createDataSource(prop);
+
+        // 获取一个连接
+        Connection conn = source.getConnection();
+        System.out.println(conn);
+
+
+
     }
 
 
