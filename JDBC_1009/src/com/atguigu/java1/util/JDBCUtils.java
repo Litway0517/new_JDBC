@@ -21,16 +21,17 @@ import java.util.Properties;
  */
 public class JDBCUtils {
 
-    // 定义一个类的静态变量
     /*
         因为下面的静态方法, static初始化方法, 需要用到, dataSource这个变量, 而静态方法只能调用静态的对象.
         因此, dataSource需要用static修饰
 
      */
+    // 定义一个类的静态变量
     private static DataSource dataSource;
 
     /*
         static代码块, 是当类加载完成的时候, 仅仅执行一次, 这样就只会有一个dataSource, 也就是只有一个数据池
+        static代码块执行的目的就是为了创建一个数据池, 并赋值给外面的静态dataSource变量
      */
     static {
         try {
