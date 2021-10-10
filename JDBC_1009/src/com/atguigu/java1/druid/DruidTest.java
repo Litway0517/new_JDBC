@@ -91,7 +91,7 @@ public class DruidTest {
         Connection conn = source.getConnection();
         System.out.println(conn);
 
-
+        Assert.assertNotNull(conn);
 
     }
 
