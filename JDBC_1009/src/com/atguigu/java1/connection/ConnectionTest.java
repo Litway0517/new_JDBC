@@ -4,7 +4,7 @@ package com.atguigu.java1.connection;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.annotation.processing.Filer;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -121,8 +121,14 @@ public class ConnectionTest {
 
         // 读取配置文件
         Properties prop = new Properties();
+
+        // 加载配置文件的第一种方式
         InputStream fr = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
         prop.load(fr);
+
+        // 加载配置文件的第二种方式
+        FileReader fr2 = new FileReader("src\\jdbc.properties");
+        prop.load(fr2);
 
 
         String className = prop.getProperty("className");
