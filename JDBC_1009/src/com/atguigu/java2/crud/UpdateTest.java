@@ -85,6 +85,34 @@ public class UpdateTest {
 
             第二种方式更便捷能是用
      */
+
+
+    /*
+        同样使用占位符, 演示一下删除操作
+     */
+    @Test
+    public void testUpdate3() {
+        Connection conn = null;
+
+        try {
+            // 1- 获取连接(使用刚才封装好的, JDBCUtils工具类, 直接获取一个连接)
+            conn = JDBCUtils.getConnection();
+
+            // 2- 提供一个添加操作的sql -> 问号?是占位符
+            String sql = "DELETE FROM customers where id > ?";
+
+            // 3- 使用其他第三方封装好的QueryRunner, 调用update()方法, 实现数据的插入
+            QueryRunner runner = new QueryRunner();
+            // 用"王亮", "wangl@163.com", new Date(151335133L), 这三个参数去代替上面的sql语句中的 占位符(?被叫做占位符)
+            int count = runner.update(conn, sql, 19);
+            System.out.println("删除了" + count + "行数据. ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(conn);
+        }
+
+    }
 }
 
 
