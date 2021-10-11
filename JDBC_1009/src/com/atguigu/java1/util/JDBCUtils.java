@@ -6,6 +6,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 import javax.sql.DataSource;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -54,6 +55,19 @@ public class JDBCUtils {
     public static Connection getConnection() throws Exception {
         // 获取一个连接
         return dataSource.getConnection();
+    }
+
+    /*
+        因为, 每次使用完毕之后, 都需要关闭掉数据库的连接. 所以也封装成一个方法
+     */
+    public static void close(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
