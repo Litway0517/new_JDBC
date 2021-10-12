@@ -5,13 +5,11 @@ import com.atguigu.java1.util.JDBCUtils;
 import com.atguigu.java2.bean.Customer;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.MapHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.*;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -165,7 +163,72 @@ public class Query {
 
     }
 
+    /*
+        查询表中的特殊数据, 比如 count(*)计数, max(xx), min(xx), avg等这几个组函数时, 使用的ScalarHandler这个对象接受结果
+     */
+    @Test
+    public void testScalar5() {
+        Connection conn = null;
 
+        try {
+            // 1. 获取数据库的连接
+            conn = JDBCUtils.getConnection();
+
+            // 2. 提供一条带有占位符的查询语句
+            String sql = "SELECT count(*) from customers";
+
+            // 3. 创建QueryRunner实例
+            QueryRunner runner = new QueryRunner();
+
+            // 4. 通过QueryRunner的实例, 调用其query()方法, 查询. 会返回一个结果集(这个结果就是java对象了)
+            ScalarHandler scalar = new ScalarHandler();
+            Object count = runner.query(conn, sql, scalar);
+
+            System.out.println("信息计数共有 -> " + count + "条");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 5. 关闭资源
+            JDBCUtils.close(conn);
+        }
+
+
+    }
+
+    /*
+        max组函数
+        查询出生年月最大的
+     */
+    @Test
+    public void testScalar6() {
+        Connection conn = null;
+
+        try {
+            // 1. 获取数据库的连接
+            conn = JDBCUtils.getConnection();
+
+            // 2. 提供一条带有占位符的查询语句
+            String sql = "SELECT max(birth) from customers";
+
+            // 3. 创建QueryRunner实例
+            QueryRunner runner = new QueryRunner();
+
+            // 4. 通过QueryRunner的实例, 调用其query()方法, 查询. 会返回一个结果集(这个结果就是java对象了)
+            ScalarHandler scalar = new ScalarHandler();
+            Date birth = (Date) runner.query(conn, sql, scalar);
+
+            System.out.println("最大的出生日期是 -> " + birth);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 5. 关闭资源
+            JDBCUtils.close(conn);
+        }
+
+
+    }
 
 }
 
