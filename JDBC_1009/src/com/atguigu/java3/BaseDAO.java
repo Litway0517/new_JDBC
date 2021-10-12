@@ -9,7 +9,20 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+
+
+/**
+ * 底刀
+ *
+ * @author DELL
+ * @date 2021/10/12
+ */
 public abstract class BaseDAO {
+
+    /*
+        DAO -> 实际上就是 Data access Object
+            数据库访问对象
+     */
 
     // 定义通用的增删改操作
     private QueryRunner runner = new QueryRunner();
