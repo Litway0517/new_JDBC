@@ -27,7 +27,7 @@ public abstract class BaseDAO {
     // 定义通用的增删改操作
     private QueryRunner runner = new QueryRunner();
 
-    public int Update(Connection conn, String sql, Object ... objs) throws SQLException {
+    public int update(Connection conn, String sql, Object ... objs) throws SQLException {
         return runner.update(conn, sql, objs);
 
     }
@@ -42,6 +42,7 @@ public abstract class BaseDAO {
 
     }
 
+
     // 查询操作 -> 查询表中的多条记录
     public <T> List<T> getForList(Connection connection, String sql, Class<T> clazz, Object ... objs)
             throws SQLException
@@ -50,8 +51,9 @@ public abstract class BaseDAO {
         return runner.query(connection, sql, handler, objs);
     }
 
-    // 查询特殊值 -> 返回的可能是多条特殊值
+
     /*
+        查询特殊值 -> 返回的可能是多条特殊值
         这个直接就用Object返回吧, 即使是写了泛型T, 实际上还是会有检查机制
      */
     public Object getValue(Connection connection, String sql, Object... objs) throws SQLException {
