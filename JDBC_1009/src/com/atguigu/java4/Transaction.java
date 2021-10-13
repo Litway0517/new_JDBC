@@ -82,6 +82,52 @@ public class Transaction {
 
     }
 
+    @Test
+    public void test2() {
+        Connection conn = null;
+        try {
+            QueryRunner runner = new QueryRunner();
+            conn = JDBCUtils.getConnection();
 
+            // 因为在学习mysql时, 说明了, 数据会自动提交, 所以需要设置一下参数 -> 关闭自动提交
+            conn.setAutoCommit(false);
+
+            // 操作1
+            String sql1 = "UPDATE user_table SET balance = balance - 100 WHERE user = ?;";
+            runner.update(conn, sql1, "AA");
+            System.out.println("AA转出成功");
+
+            // 模拟异常出现
+//            System.out.println(10 / 0);
+
+
+            // 操作2
+            String sql2 = "UPDATE user_table SET balance = balance + 100 WHERE user = ?;";
+            runner.update(conn, sql2, "BB");
+            System.out.println("BB转入成功");
+
+
+            // 如果能够执行到这里, 那么再手动提交!
+            conn.commit();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // 提醒一下调用者, 这里操作失败, 需要回滚操作
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            JDBCUtils.close(conn);
+        }
+
+
+
+    }
 
 }
