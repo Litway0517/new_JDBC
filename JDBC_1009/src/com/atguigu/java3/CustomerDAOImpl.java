@@ -42,7 +42,7 @@ public class CustomerDAOImpl extends BaseDAO implements CustomerDAO {
     @Override
     public int deleteCustomer(Connection connection, int id) throws SQLException {
         // sql语句
-        String sql = "DELETE FROM customer WHERE id = ?";
+        String sql = "DELETE FROM customers WHERE id = ?";
         return update(connection, sql, id);
     }
 
@@ -54,7 +54,7 @@ public class CustomerDAOImpl extends BaseDAO implements CustomerDAO {
      */
     @Override
     public int updateCustomer(Connection connection, Customer customer) throws SQLException {
-        String sql = "UPDATE customers SET name = ?,email = ?,birth = ?, WHERE id = ?";
+        String sql = "UPDATE customers SET `name` = ?,email = ?,birth = ? WHERE id = ?";
         return update(connection, sql,
                 customer.getName(), customer.getEmail(), customer.getBirth(), customer.getId());
     }
