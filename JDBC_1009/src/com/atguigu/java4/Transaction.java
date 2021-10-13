@@ -98,7 +98,7 @@ public class Transaction {
             System.out.println("AA转出成功");
 
             // 模拟异常出现
-//            System.out.println(10 / 0);
+            System.out.println(10 / 0);
 
 
             // 操作2
