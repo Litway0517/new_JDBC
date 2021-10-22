@@ -150,6 +150,7 @@ public class Query {
 
             // 4. 通过QueryRunner的实例, 调用其query()方法, 查询. 会返回一个结果集(这个结果就是java对象了)
             MapListHandler mapList = new MapListHandler();
+            // 查询到的是一个List集合, List集合中每一个元素是Map对象. 而Map对象就是一个小集合, Map里又有键值对
             List<Map<String, Object>> map = runner.query(conn, sql, mapList, 1);
 
             map.forEach(System.out::println);
