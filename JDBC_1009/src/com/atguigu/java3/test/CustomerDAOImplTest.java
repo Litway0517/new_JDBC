@@ -2,7 +2,7 @@ package com.atguigu.java3.test;
 
 
 import com.atguigu.java1.util.JDBCUtils;
-import com.atguigu.java3.CustomerDAOImpl;
+import com.atguigu.java3.impl.CustomerDAOImpl;
 import com.atguigu.java3.bean.Customer;
 import org.junit.Test;
 

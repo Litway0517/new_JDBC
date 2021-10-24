@@ -1,6 +1,8 @@
-package com.atguigu.java3;
+package com.atguigu.java3.impl;
 
 
+import com.atguigu.java3.BaseDAO;
+import com.atguigu.java3.CustomerDAO;
 import com.atguigu.java3.bean.Customer;
 
 import java.sql.Connection;
