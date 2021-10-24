@@ -30,13 +30,12 @@ public interface CustomerDAO {
      * 根据指定的id, 删除表中的一条记录
      *
      * @param connection 指定的具体连接
-     * @param customer 传入新的customer, 后面将会根据传入的customer的id, 直接覆盖数据
+     * @param id 传入新的customer, 后面将会根据传入的customer的id, 直接覆盖数据
      */
     public abstract int deleteCustomer(Connection connection, int id) throws SQLException;
 
     /**
      * 更新数据
-     *
      *
      * @param connection 具体指定的连接
      * @param customer 一条记录
@@ -45,6 +44,7 @@ public interface CustomerDAO {
 
     /**
      * 根据id, 获取一条记录
+     *
      * @param connection 具体指定的连接
      * @param id 记录的标号
      * @return 返回要查询的结果
@@ -57,7 +57,7 @@ public interface CustomerDAO {
      * 查询数据库中该表的所有记录, 返回一个列表, 列表的元素为查询到的结果
      *
      * @param connection 具体指定的连接
-     * @return
+     * @return 查询得结果集合
      */
     public abstract List<Customer> getAllCustomers(Connection connection) throws SQLException;
 
